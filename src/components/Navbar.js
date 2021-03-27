@@ -21,7 +21,7 @@ const Navbar = class extends React.Component {
     super(props)
   }
   render() {
-    const pathname = window.location.pathname
+    const pathname = this.props.location.pathname
     return (
       <nav
         className="navbar is-transparent"

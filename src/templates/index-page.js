@@ -7,12 +7,13 @@ import Features from '../components/Features'
 import BlogRoll from '../components/BlogRoll'
 import AutofitImage from '../components/AutofitImage'
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, location }) => {
   const { frontmatter } = data.markdownRemark
   const { heroImage } = frontmatter
 
   return (
     <Layout
+      location={location}
       style={{
         marginTop: 'auto',
       }}
