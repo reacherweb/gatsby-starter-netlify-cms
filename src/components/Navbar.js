@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'gatsby'
 import logo from '../img/logo.png'
 import HorizontalScrollable from './HorizontalScrollable'
+import window from 'global'
+
 
 const pages = [
   ['首頁', '/'],
