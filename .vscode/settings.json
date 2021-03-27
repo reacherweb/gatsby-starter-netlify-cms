@@ -1,0 +1,27 @@
+{
+  "editor.minimap.enabled": true,
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "i18n-ally.dirStructure": "auto",
+  "i18n-ally.localesPaths": "**/assets/translation",
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.keepFulfilled": true,
+  "i18n-ally.displayLanguage": "en",
+  "i18n-ally.enabledFrameworks": ["react", "i18next"],
+  "i18n-ally.namespace": true,
+  "i18n-ally.regex.key": ".*?",
+  "i18n-ally.annotationMaxLength": 100,
+  "i18n-ally.regex.usageMatchAppend": [
+    "[`'\"]([a-zA-Z_0-9][a-zA-Z0-9\\-_ ]*[a-zA-Z0-9_]:[a-zA-Z0-9_][a-zA-Z0-9\\-_ .]*[a-zA-Z0-9_])[`'\"]",
+    "[`'\"]([a-zA-Z_0-9]:[a-zA-Z0-9_][a-zA-Z0-9\\-_ .]*[a-zA-Z0-9_])[`'\"]",
+    "[`'\"]([a-zA-Z_0-9][a-zA-Z0-9\\-_ ]*[a-zA-Z0-9_]:[a-zA-Z0-9_])[`'\"]",
+    "[a-z]?ttt\\([`'\"]([a-zA-Z_0-9][a-zA-Z0-9\\-_ ]*[a-zA-Z0-9_])[`'\"]",
+    "[a-z]?ttt\\([`'\"]([a-zA-Z_0-9])[`'\"]"
+  ],
+  "i18n-ally.keystyle": "nested",
+  "[markdown]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  }
+}

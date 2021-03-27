@@ -1,140 +1,383 @@
 @import "~bulma/sass/utilities/initial-variables"
 
-// Config vars
-// Kaldi logo brand color: #FD461E
-$kaldi-red: #D64000
-$kaldi-red-invert: #fff
 
-$primary: $kaldi-red
-$primary-invert: $kaldi-red-invert
-$body-color: #333
-$black: #2b2523
+// Browser Prefixes
+@mixin transform($transforms)
+	-webkit-transform: $transforms
+	-moz-transform: $transforms
+	-ms-transform: $transforms
+	transform: $transforms
 
-.navbar .navbar-menu
-  box-shadow:none !important
 
-.content .taglist
-  list-style: none
-  margin-bottom: 0
-  margin-left: 0
-  margin-right: 1.5rem
-  margin-top: 1.5rem
+// Rotate
+@mixin rotate ($deg) 
+	@include transform(rotate(#{$deg}deg))
+
+
+// Scale
+@mixin scale($scale) 
+	@include transform(scale3d($scale, $scale, 1))
+
+
+// Translate
+@mixin translate ($x, $y) 
+	@include transform(translate($x, $y))
+
+
+// Skew
+@mixin skew ($x, $y) 
+	@include transform(skew(#{$x}deg, #{$y}deg))
+
+
+// Transform Origin
+@mixin transformOrigin ($origin)
+  -webkit-transform-origin: $origin
+  -ms-transform-origin: $origin
+  -moz-transform-origin: $origin
+  transform-origin: $origin
+
+// Transition
+@mixin transition($transition...) 
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+
+
+@mixin animation ($delay, $duration, $animation, $timing) 
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -webkit-animation-timing-function: $timing;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -moz-animation-timing-function: $timing;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -o-animation-timing-function: $timing;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    animation-timing-function: $timing;
+
+
+// keyframes mixin
+=keyframes($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-ms-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content
+
+$transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000)//cubic-bezier(0.90, 0.250, 0.10, 0.750);
+$transition-duration: 1.333s;
+
+  
+@mixin transitionInBase () 
+	@include transition(all 1000ms $transition-timing-function)
+  
+
++keyframes(transitionInFadeAnimation)
+  from {opacity: 0}
+  to {opacity: 1}
+
+$transitionSize: 30px;
+$transitionSizeStart: 20%;
+
++keyframes(transitionInFromLeftAnimation)
+  0% {transform: translateX(-$transitionSize); opacity: 0;animation-timing-function: $transition-timing-function;}
+  100% {transform: translateX(0px); opacity: 1}
+
++keyframes(transitionInFromRightAnimation)
+  0% {transform: translateX($transitionSize); opacity: 0;animation-timing-function: $transition-timing-function;}
+  100% {transform: translateX(0px); opacity: 1}
+
++keyframes(transitionInFromAboveAnimation)
+  0% {transform: translateY(-$transitionSize); opacity: 0;animation-timing-function: $transition-timing-function;}
+  100% {transform: translateY(0px); opacity: 1}
+
++keyframes(transitionInFromBelowAnimation)
+  0% {transform: translateY($transitionSize); opacity: 0;animation-timing-function: $transition-timing-function;}
+  100% {transform: translateY(0px); opacity: 1}
+
++keyframes(transitionInScaleAnimation)
+  0% {transform: scale3d(0.95, 0.95, 1); opacity: 0;animation-timing-function: $transition-timing-function;}
+  100% {transform: scale3d(1, 1, 1); opacity: 1}
+
+@mixin transitionInFade ($delay) 
+  opacity: 0
+  @include animation($delay, $transition-duration, transitionInFadeAnimation, $transition-timing-function)
+
+@mixin transitionInFromLeft ($delay) 
+  opacity: 0
+  @include animation($delay, $transition-duration, transitionInFromLeftAnimation, $transition-timing-function)
+
+@mixin transitionInFromRight ($delay) 
+  opacity: 0
+  @include animation($delay, $transition-duration, transitionInFromRightAnimation, $transition-timing-function)
+
+@mixin transitionInFromAbove ($delay) 
+  opacity: 0
+  @include animation($delay, $transition-duration, transitionInFromAboveAnimation, $transition-timing-function)
+
+@mixin transitionInFromBelow ($delay) 
+  opacity: 0
+  @include animation($delay, $transition-duration, transitionInFromBelowAnimation, $transition-timing-function)
+
+@mixin transitionInScale ($delay) 
+  opacity: 0
+  transform-origin: center;
+  @include animation($delay, $transition-duration, transitionInScaleAnimation, $transition-timing-function)
+
+
+
+$brand-primary: #000  // #231f20
+$brand-secondary: aquamarine
+$brand-tertiary: #000
+$brand-grey: #d1d3d4
+$shadow-color: #F1F2F2
+
+
+body, html
+  overflow-x: hidden;
+  color: $brand-tertiary
+  font-weight: 300
+  min-height: calc(var(--vh) * 100);
+
+        
+.BrainhubCarousel, .BrainhubCarousel__track, .BrainhubCarousel__trackContainer
+  height: 100%
+  
+
+*::-webkit-scrollbar 
+  width: 20px;
+
+*::-webkit-scrollbar-track 
+  background-color: transparent;
+
+*::-webkit-scrollbar-thumb 
+  background-color: #dfdfdf
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box
+
+*::-webkit-scrollbar-thumb:hover 
+  background-color: #efefef
+
+
+
+.horizontal-scrollable-list
   display: flex
-  flex-wrap: wrap
-  justify-content: left
-  align-items: center
-  li
-    padding: 0 2rem 1rem 0
-    margin-bottom: 1.5rem
-    margin-top: 0
-
-// Helper Classes
-.full-width-image-container
-  width: 100vw
-  height: 400px
-  position: relative
-  left: 50%
-  right: 50%
-  margin: 2em -50vw
-  background-size: cover
-  background-position: bottom
-  display: flex
-  justify-content: center
-  align-items: center
-
-.full-width-image
-    width: 100vw
-    height: 400px
-    background-size: cover
-    background-position: bottom
-    display: flex
-    justify-content: center
-    align-items: center
-
-.btn
-    display: inline-block
-    padding: 12px 16px 10px
-    font-size: 18px
-    font-size: 1rem
-    line-height: 1.25
-    background-color: #fff
-    border-radius: .25rem
-    text-decoration: none
-    font-weight: 700
-    color: #CC3700
-    text-align: center
-    -webkit-box-shadow: inset 0 0 0 2px #CC3700
-    box-shadow: inset 0 0 0 2px #f40
-    -webkit-transition: all .15s ease
-    transition: all .15s ease
-
-.margin-top-0
-  margin-top: 0 !important
-
-.navbar-item .icon
-  color: $primary
-// Override for use of svg's from https://simpleicons.org/
-.icon svg
-  width: 1.5rem
-  height: 1.5rem
-  fill: currentColor
-.navbar-brand .navbar-item.logo
-  padding: 0 1rem
-footer.footer
-  padding: 3rem 0rem 0rem
-  background-color: transparent
-
-//Menu overrides
-$menu-item-color: $white-ter
-$menu-item-hover-color: $black !important
-$menu-item-hover-background-color: $black
-$menu-item-active-color: $kaldi-red-invert
-$menu-item-active-background-color:	$kaldi-red-invert
-$menu-list-border-left: 1px solid $kaldi-red-invert
-$menu-label-color: $white-ter
+  overflow-x: auto
+  overflow-x: overlay
+  width: 100%
 
 
-.menu-label
-  font-size: 1em !important
-  text-align: left
-.menu-list
-  list-style: none !important
-  text-align: left
-.social
-  padding: 2em
-.social a
-    padding: .5em .5em .3em .5em
-    border-radius: 1em
-    background-color: $white-ter
-    margin: .5em
-    width: 1em
-    height: 1em
-    vertical-align: middle
-    display: inline
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    
+html, body
+    overflow-y: auto
+    overflow-y: overlay
 
-// blog roll
-.blog-list-item.is-featured
-  background-color: #d6400033;
-.blog-list-item header
+
+
+.body 
+  *::-webkit-scrollbar 
+    width: 20px;
+    height: 0;
+
+  *::-webkit-scrollbar-track 
+    background-color: transparent;
+
+  *::-webkit-scrollbar-thumb 
+    background-color: #ffcc23
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box
+
+  *::-webkit-scrollbar-thumb:hover 
+    background-color: #ffd64f
+
+
+  min-height: calc(var(--vh) * 100)
   display: flex;
-  margin-bottom: 1em;
-.blog-list-item .featured-thumbnail
-  flex-basis: 35%;
-  margin: 0 1.5em 0 0;
+  flex-direction: column;
 
 
-@import "~bulma"
+.ham 
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 400ms;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+.hamRotate
+  &.active 
+    transform: rotate(45deg);
+
+.hamRotate180
+  &.active 
+    transform: rotate(180deg);
+
+.line 
+  fill: none;
+  transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+  stroke: #000;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+
+.ham1
+  .top 
+    stroke-dasharray: 40 139;
+  .bottom 
+    stroke-dasharray: 40 180;
+  &.active
+    .top 
+      stroke-dashoffset: -98px;
+    .bottom 
+      stroke-dashoffset: -138px;
 
 
-// responsiveness
-+tablet-only
-  .blog-list-item .featured-thumbnail
-    flex-basis: 50%;
+.content-container
+  max-width: 960px
+  margin-top: 32px;
+  margin-bottom: 32px;
+  margin-left: auto
+  margin-right: auto
 
-+mobile
-  .blog-list-item header
+.navbar
+  max-width: 960px
+  margin-left: auto
+  margin-right: auto
+  height: 196px
+  z-index: 1
+
+  .container
     display: block
-  .blog-list-item .featured-thumbnail
-    text-align: center;
-    max-width: 70%;
-    margin: 0 0 1em;
+
+  .navbar-logo 
+    display: flex;
+    padding: 8px 10px
+    color: white
+    outline: none;
+    img
+      max-height: unset
+      max-width: calc(var(--vw) * 100 - 8px * 2);
+
+  .navbar-brand
+    display: flex
+    margin-bottom: 6px
+
+  .navbar-menu
+    display: flex;
+    border-color: #7c7c7c;
+    background-color: #050505;
+    border-top-style: solid;
+    border-top-width: 1px;
+    font-family: "Microsoft JhengHei", HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0px 10px
+    border: 0;
+    color: white;
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0px 0px 12px rgba(0,0,0,0.7);
+    -webkit-box-shadow: 0px 0px 12px rgba(0,0,0,0.7)
+    .navbar-item
+      color: white
+      white-space: nowrap
+      flex-grow: 1
+      text-align: center
+      background-color: transparent
+      &.active
+        background-color: #ee7800;
+      &:hover
+        background-color: #f69532;
+      padding: 15px 25px;
+      line-height: 24px;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      font-weight: bold;
+
+      @include transition(color 300ms, background-color 300ms, opacity 300ms)
+
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (max-width:960px)
+  .navbar
+    .navbar-menu
+      max-width: calc(var(--vw) * 100 - 24px * 2);
+      margin: auto;
+      
+    .navbar-logo
+      margin: auto
+
+
+
+
+
+
+
+
+
+
+@media (min-width:1261px)
+  .mobile-only 
+    display: none !important
+
+
+
+@media (max-width:1260px)
+  .desktop-only 
+    display: none !important
+
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@media (min-width:320px)
+
+
+
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@media (min-width:320px)
+  
+
+
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+@media (min-width:481px)
+
+
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+@media (min-width:641px)
+
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (min-width:961px)
+
+
+/* big landscape tablets, laptops, and desktops */
+@media (min-width:1025px)
+
+
+/* hi-res laptops and desktops */
+@media (min-width:1281px)
